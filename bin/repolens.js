@@ -4,7 +4,6 @@ const { Command } = require('commander');
 const chalk = require('chalk');
 const ora = require('ora');
 const Table = require('cli-table3');
-const path = require('path');
 const { GitParser } = require('../src/parser');
 const { OwnershipAnalyzer } = require('../src/analyzers/ownership');
 const { ComplexityAnalyzer } = require('../src/analyzers/complexity');
@@ -23,7 +22,7 @@ program
 
 program
   .command('analyze <repo>')
-  .description('Run full analysis on a local git repository or clone a remote URL')
+  .description('Analyze a local git repository')
   .option('-j, --json', 'Output as JSON')
   .option('-o, --output <file>', 'Write report to file')
   .option('--no-ai', 'Skip AI briefing generation')
@@ -114,7 +113,7 @@ program
 program
   .command('ownership <repo>')
   .description('Show file ownership map')
-  .option('-n, --top <n>', 'Show top N owners per file', parseInt, 3)
+  .option('-n, --top <n>', 'Show top N files by ownership', parseInt, 3)
   .action(async (repo, options) => {
     const spinner = ora('Parsing git history...').start();
     try {
