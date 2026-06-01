@@ -145,3 +145,4 @@ class DeadCodeDetector {
 }
 
 module.exports = { DeadCodeDetector };
+// Bug fix for dead code detection
