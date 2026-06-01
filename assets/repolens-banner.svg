@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#161b22"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#58a6ff"/>
+      <stop offset="100%" style="stop-color:#bc8cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#21262d" stroke-width="0.5"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
+  <!-- Accent line top -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)"/>
+  <!-- Logo area -->
+  <circle cx="100" cy="315" r="45" fill="none" stroke="#58a6ff" stroke-width="3"/>
+  <text x="100" y="325" font-family="monospace" font-size="40" fill="#58a6ff" text-anchor="middle">🔍</text>
+  <!-- Title -->
+  <text x="170" y="270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="52" font-weight="bold" fill="#f0f6fc">
+    RepoLens
+  </text>
+  <!-- Subtitle -->
+  <text x="170" y="320" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" fill="#8b949e">
+    Codebase Intelligence from Git History
+  </text>
+  <!-- Tags -->
+  <rect x="170" y="350" width="120" height="32" rx="16" fill="#1f6feb" opacity="0.2"/>
+  <text x="230" y="371" font-family="monospace" font-size="14" fill="#58a6ff" text-anchor="middle">ownership</text>
+  <rect x="300" y="350" width="130" height="32" rx="16" fill="#1f6feb" opacity="0.2"/>
+  <text x="365" y="371" font-family="monospace" font-size="14" fill="#58a6ff" text-anchor="middle">complexity</text>
+  <rect x="440" y="350" width="80" height="32" rx="16" fill="#1f6feb" opacity="0.2"/>
+  <text x="480" y="371" font-family="monospace" font-size="14" fill="#58a6ff" text-anchor="middle">bugs</text>
+  <rect x="530" y="350" width="110" height="32" rx="16" fill="#1f6feb" opacity="0.2"/>
+  <text x="585" y="371" font-family="monospace" font-size="14" fill="#58a6ff" text-anchor="middle">deadcode</text>
+  <rect x="650" y="350" width="80" height="32" rx="16" fill="#1f6feb" opacity="0.2"/>
+  <text x="690" y="371" font-family="monospace" font-size="14" fill="#58a6ff" text-anchor="middle">deps</text>
+  <rect x="740" y="350" width="60" height="32" rx="16" fill="#1f6feb" opacity="0.2"/>
+  <text x="770" y="371" font-family="monospace" font-size="14" fill="#58a6ff" text-anchor="middle">AI</text>
+  <!-- Stats bar -->
+  <rect x="170" y="410" width="900" height="80" rx="8" fill="#21262d"/>
+  <text x="250" y="445" font-family="monospace" font-size="14" fill="#8b949e">ANALYZES</text>
+  <text x="250" y="470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#f0f6fc">6 Engines</text>
+  <line x1="380" y1="420" x2="380" y2="480" stroke="#30363d" stroke-width="1"/>
+  <text x="430" y="445" font-family="monospace" font-size="14" fill="#8b949e">TESTS</text>
+  <text x="430" y="470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#3fb950">36 ✅</text>
+  <line x1="530" y1="420" x2="530" y2="480" stroke="#30363d" stroke-width="1"/>
+  <text x="580" y="445" font-family="monospace" font-size="14" fill="#8b949e">CI/CD</text>
+  <text x="580" y="470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#58a6ff">Node 18/20/22</text>
+  <line x1="770" y1="420" x2="770" y2="480" stroke="#30363d" stroke-width="1"/>
+  <text x="820" y="445" font-family="monospace" font-size="14" fill="#8b949e">PACKAGE</text>
+  <text x="820" y="470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#d2a8ff">npm</text>
+  <!-- GitHub badge -->
+  <rect x="920" y="60" width="240" height="50" rx="8" fill="#238636"/>
+  <text x="1040" y="91" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">⭐ Star on GitHub</text>
+  <!-- Challenge badge -->
+  <rect x="920" y="125" width="240" height="50" rx="8" fill="#1f6feb" opacity="0.2" stroke="#1f6feb" stroke-width="1"/>
+  <text x="1040" y="156" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#58a6ff" text-anchor="middle">🏆 Finish-Up-A-Thon</text>
+  <!-- Bottom accent -->
+  <rect x="0" y="626" width="1200" height="4" fill="url(#accent)"/>
+  <!-- Terminal preview -->
+  <rect x="170" y="510" width="500" height="90" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <circle cx="190" cy="528" r="5" fill="#f85149"/>
+  <circle cx="205" cy="528" r="5" fill="#d29922"/>
+  <circle cx="220" cy="528" r="5" fill="#3fb950"/>
+  <text x="185" y="558" font-family="monospace" font-size="13" fill="#8b949e">$ repolens analyze .</text>
+  <text x="185" y="578" font-family="monospace" font-size="13" fill="#3fb950">✓ Analysis complete in 1.2s</text>
+</svg>
