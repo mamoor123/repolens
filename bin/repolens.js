@@ -284,7 +284,7 @@ function printOwnership(report, topN) {
   console.log('');
   console.log(chalk.cyan.bold('👥 File Ownership Map'));
   const table = new Table({ head: ['File', 'Primary Owner', 'Ownership %', 'Commits'], style: { head: ['cyan'] } });
-  report.fileOwnership.forEach(f => {
+  report.fileOwnership.slice(0, topN).forEach(f => {
     table.push([truncate(f.file, 55), f.primaryOwner.name, formatPercent(f.primaryOwner.ownership), f.primaryOwner.commits]);
   });
   console.log(table.toString());
@@ -305,7 +305,25 @@ function printBugs(report) {
   console.log(chalk.cyan.bold('🐛 Bug Archaeology'));
   console.log(`  Total bug-fix commits: ${chalk.yellow(report.totalBugFixes)}`);
   console.log(`  Percentage of all commits: ${chalk.yellow(formatPercent(report.bugFixPercent))}`);
-  printReport(report);
+
+  if (report.hotspots.length > 0) {
+    const bugTable = new Table({ head: ['File', 'Bug-fix Commits', '% of All Fixes', 'Risk'], style: { head: ['cyan'] } });
+    report.hotspots.slice(0, 10).forEach(b => {
+      const risk = b.riskLevel === 'critical' ? chalk.red('🔴 CRITICAL') :
+                   b.riskLevel === 'high' ? chalk.yellow('🟡 HIGH') :
+                   b.riskLevel === 'medium' ? chalk.blue('🔵 MEDIUM') : chalk.green('🟢 LOW');
+      bugTable.push([truncate(b.file, 50), b.bugFixCommits, formatPercent(b.percentOfFixes), risk]);
+    });
+    console.log(bugTable.toString());
+  }
+
+  if (report.recentBugs && report.recentBugs.length > 0) {
+    console.log('');
+    console.log(chalk.white.bold('Recent bug-fix commits:'));
+    report.recentBugs.slice(0, 5).forEach(b => {
+      console.log(`  ${chalk.gray(b.hash)} ${b.subject} ${chalk.gray(b.date)}`);
+    });
+  }
 }
 
 function printDeadCode(report) {

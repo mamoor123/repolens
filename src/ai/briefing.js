@@ -315,4 +315,3 @@ Write a concise codebase briefing for a developer joining this project.`;
 }
 
 module.exports = { AIBriefing };
-// New feature

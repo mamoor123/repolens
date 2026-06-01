@@ -209,4 +209,3 @@ class ComplexityAnalyzer {
 }
 
 module.exports = { ComplexityAnalyzer };
-// Added complexity tracking
