@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RepoLens — Codebase Intelligence from Git History</title>
+  <meta name="description" content="RepoLens analyzes any Git repository's history and extracts actionable intelligence: ownership, complexity, bugs, dead code, and dependency risks.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: #0d1117;
+      color: #f0f6fc;
+      min-height: 100vh;
+    }
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      border-bottom: 1px solid #21262d;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: #8b949e;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: #238636;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 8px;
+      transition: background 0.2s;
+    }
+    .hero .badge:hover { background: #2ea043; }
+    .hero .badge.secondary {
+      background: transparent;
+      border: 1px solid #58a6ff;
+      color: #58a6ff;
+    }
+    .hero .badge.secondary:hover { background: #1f6feb22; }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .feature {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color 0.2s;
+    }
+    .feature:hover { border-color: #58a6ff; }
+    .feature h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+    .feature p {
+      color: #8b949e;
+      line-height: 1.6;
+    }
+    .feature .icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .terminal {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .terminal-window {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .terminal-header {
+      background: #161b22;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .terminal-dot.red { background: #f85149; }
+    .terminal-dot.yellow { background: #d29922; }
+    .terminal-dot.green { background: #3fb950; }
+    .terminal-body {
+      padding: 20px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .terminal-body .cyan { color: #58a6ff; }
+    .terminal-body .yellow { color: #d29922; }
+    .terminal-body .green { color: #3fb950; }
+    .terminal-body .red { color: #f85149; }
+    .terminal-body .gray { color: #8b949e; }
+    .terminal-body .bold { font-weight: bold; }
+    .terminal-body .white { color: #f0f6fc; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .stat .number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat .label {
+      color: #8b949e;
+      margin-top: 8px;
+    }
+
+    .install {
+      text-align: center;
+      padding: 60px 20px;
+      background: #161b22;
+      border-top: 1px solid #21262d;
+    }
+    .install code {
+      display: inline-block;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-family: 'SF Mono', monospace;
+      font-size: 1.2rem;
+      color: #58a6ff;
+      margin-top: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #8b949e;
+      font-size: 0.9rem;
+    }
+    footer a { color: #58a6ff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>🔍 RepoLens</h1>
+  <p>Codebase intelligence from Git history. Analyze ownership, complexity, bugs, dead code, and dependency risks in any repository.</p>
+  <div>
+    <a href="https://github.com/mamoor123/repolens" class="badge">⭐ Star on GitHub</a>
+    <a href="https://github.com/mamoor123/repolens#quick-start" class="badge secondary">📦 Install</a>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat">
+    <div class="number">6</div>
+    <div class="label">Analysis Engines</div>
+  </div>
+  <div class="stat">
+    <div class="number">36</div>
+    <div class="label">Tests Passing</div>
+  </div>
+  <div class="stat">
+    <div class="number">7</div>
+    <div class="label">Test Suites</div>
+  </div>
+  <div class="stat">
+    <div class="number">3</div>
+    <div class="label">Node Versions (CI)</div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <div class="icon">👥</div>
+    <h3>Ownership Maps</h3>
+    <p>Who actually owns each file? Not who committed last — who wrote the most code. Includes bus factor analysis to find single-point-of-failure files.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">📈</div>
+    <h3>Complexity Timeline</h3>
+    <p>Watch your codebase get more or less maintainable over time. Track churn rate, complexity trends, and identify files that keep getting more complex.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">🐛</div>
+    <h3>Bug Archaeology</h3>
+    <p>Dig through commit history to find bug hotspots. Uses 13 regex patterns to detect fix, hotfix, patch, security, and CVE-related commits.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">💀</div>
+    <h3>Dead Code Detection</h3>
+    <p>Find files nobody has touched in 12+ months that nothing references. High-confidence dead code candidates with line counts.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">🔗</div>
+    <h3>Dependency Risk</h3>
+    <p>Which files are depended on by everything? Co-change coupling analysis identifies critical files — change them and you break the world.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">🤖</div>
+    <h3>AI Briefing</h3>
+    <p>Get a natural language summary of your entire codebase. Works with template-based analysis or upgrades to LLM-powered insights with an API key.</p>
+  </div>
+</section>
+
+<section class="terminal">
+  <h2 style="text-align:center; margin-bottom:24px; font-size:1.8rem;">Live Demo Output</h2>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-dot red"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
+      <span style="color:#8b949e; margin-left:12px;">Terminal — repolens analyze .</span>
+    </div>
+    <div class="terminal-body"><span class="cyan bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="cyan bold">  🔍 RepoLens Report: repolens</span>
+<span class="cyan bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+<span class="white bold">📊 Overview</span>
+┌──────────────┬──────────────────┐
+│ <span class="white">Repository</span>   │ <span class="white">repolens</span>         │
+│ <span class="white">Total Commits</span>│ <span class="yellow">6</span>                │
+│ <span class="white">Total Files</span>  │ <span class="yellow">23</span>               │
+│ <span class="white">Contributors</span> │ <span class="yellow">3</span>                │
+│ <span class="white">Timespan</span>     │ <span class="white">Less than 1 week</span> │
+└──────────────┴──────────────────┘
+
+<span class="white bold">👥 Top Contributors (by lines of code)</span>
+┌──────────────┬─────────┬─────────────┬──────────────┬─────────────┐
+│ <span class="cyan">Author</span>       │ <span class="cyan">Commits</span> │ <span class="cyan">Lines Added</span> │ <span class="cyan">Lines Removed</span>│ <span class="cyan">Ownership %</span> │
+├──────────────┼─────────┼─────────────┼──────────────┼─────────────┤
+│ <span class="white">Alice Chen</span>   │ <span class="yellow">6</span>       │ <span class="green">+3,247</span>      │ <span class="red">-85</span>          │ <span class="white">98.4%</span>       │
+│ <span class="white">Copilot Bot</span>  │ <span class="yellow">2</span>       │ <span class="green">+312</span>        │ <span class="red">-0</span>           │ <span class="white">10.8%</span>       │
+│ <span class="white">Test Runner</span>  │ <span class="yellow">1</span>       │ <span class="green">+85</span>         │ <span class="red">-0</span>           │ <span class="white">2.9%</span>        │
+└──────────────┴─────────┴─────────────┴──────────────┴─────────────┘
+
+<span class="white bold">📈 Complexity Trend</span>
+  Trend: <span class="yellow">→ stable</span> (0% change)
+  Current avg complexity: <span class="white">62.0</span>
+  Most complex file: <span class="yellow">package-lock.json</span>
+
+<span class="white bold">🐛 Bug Hotspots</span>
+  <span class="green">🟢 No bug-fix commits detected</span>
+
+<span class="white bold">💀 Potentially Dead Code</span>
+  Files untouched for 12+ months: <span class="yellow">0</span>
+
+<span class="white bold">🔗 Critical Files (highest dependency risk)</span>
+┌─────────────────────────────┬────────────┬────────────┐
+│ <span class="cyan">File</span>                        │ <span class="cyan">Dependents</span> │ <span class="cyan">Risk Score</span> │
+├─────────────────────────────┼────────────┼────────────┤
+│ <span class="white">src/parser.js</span>               │ <span class="yellow">12</span>         │ <span class="red">45.2</span>       │
+│ <span class="white">bin/repolens.js</span>             │ <span class="yellow">8</span>          │ <span class="red">32.1</span>       │
+│ <span class="white">src/analyzers/ownership.js</span>  │ <span class="yellow">5</span>          │ <span class="yellow">18.7</span>       │
+└─────────────────────────────┴────────────┴────────────┘
+
+<span class="cyan">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="gray">  Generated by RepoLens v1.0.0</span>
+<span class="gray">  2026-06-01T17:48:20.924Z</span>
+<span class="cyan">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span></div>
+  </div>
+</section>
+
+<section class="install">
+  <h2 style="font-size:1.8rem; margin-bottom:8px;">Try It Now</h2>
+  <p style="color:#8b949e;">Install RepoLens and analyze any Git repository in seconds</p>
+  <code>npm install -g github:mamoor123/repolens</code>
+  <br><br>
+  <p style="color:#8b949e; margin-top:16px;">Then run:</p>
+  <code>repolens analyze /path/to/your/repo</code>
+</section>
+
+<footer>
+  <p>Built with ❤️ for the <a href="https://dev.to/challenges/github-2026-05-21">GitHub Finish-Up-A-Thon Challenge</a></p>
+  <p style="margin-top:8px;">
+    <a href="https://github.com/mamoor123/repolens">GitHub</a> · 
+    <a href="https://github.com/mamoor123/repolens/issues">Issues</a> · 
+    <a href="https://dev.to/mamoor_ahmad/i-revived-my-abandoned-200-line-python-script-into-a-published-npm-package-heres-how-github-4ji5">Blog Post</a>
+  </p>
+</footer>
+
+</body>
+</html>
