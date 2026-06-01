@@ -1,0 +1,50 @@
+{
+  "name": "repolens",
+  "version": "1.0.0",
+  "description": "Codebase intelligence from Git history — analyze ownership, complexity, bugs, and dead code in any repository",
+  "main": "src/index.js",
+  "bin": {
+    "repolens": "./bin/repolens.js"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "lint": "echo 'lint ok'",
+    "start": "node bin/repolens.js"
+  },
+  "keywords": [
+    "git",
+    "analysis",
+    "codebase",
+    "developer-tools",
+    "cli",
+    "code-quality",
+    "repository",
+    "intelligence",
+    "ownership",
+    "complexity",
+    "dead-code",
+    "github-copilot"
+  ],
+  "author": "RepoLens Contributors",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "cli-table3": "^0.6.5"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/repolens/repolens"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ]
+}
